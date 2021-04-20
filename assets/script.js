@@ -10,26 +10,55 @@ Generiamo i pallini con JS */
 
 $(function(){
 
-  $('.box-left').click(indietro);
-  $('.box-right').click(avanti);
-  $('.box-center i').click(mostra);
-  var figli = $('.box-img').children();
-  console.log(figli.length)
+  //conta il numero di immagini inserite
+  var Nimg = $('.box-img').children().length;
 
-  //genero pallini per n img
-  $('.box-center .pallini').prepend('<i class="fas fa-circle"></i>');
-  for (var i = 1; i < figli.length; i++){
-    
-    $('.box-center .pallini').append('<i class="far fa-circle"></i>');
-  }
+  //click freccia sinistra, va indietro tra le img
+  $('.box-left').click(indietro);
+  //click su freccia destra, va avanti tra le img
+  $('.box-right').click(avanti);
+  //genera i pallini in relazione al numero di img
+  generaNpallini(Nimg);
+  //click sul pallino, mostra l'img corrispondente
+  $('.box-center i').click(mostra);
+
 
   /* 
   * FUNZIONI
   */
 
-  function mostra(){
-
+  //genera i i pallini in relazione al numero di img
+  function generaNpallini(num){
+    for (var i = 0; i < num; i++){
+      //genera il primo pallino pieno
+      if (i == 0){
+        $('.box-center .pallini').prepend('<i class="fas fa-circle"></i>');
+  
+      } else{
+        $('.box-center .pallini').append('<i class="far fa-circle"></i>');
+      }
+  
+    }
   }
+
+  //mostra img corrispondente al pallino selezionato
+  function mostra(){
+    
+    //sposto il pallino a quello cliccato
+    var dotVisible = $('.box-center i.fas.fa-circle');
+    var imgVisible = $('.box-img img.active');
+    //posizione index del pallino cliccato
+    var imgChosen = $(this).index();
+
+    //rimuovo pallino pieno da posizione originale e metto nel punto selezionato con this
+    dotVisible.removeClass('fas fa-circle').addClass('far fa-circle');
+    $(this).removeClass('far fa-circle').addClass('fas fa-circle');
+    imgVisible.removeClass('active');
+
+    //seleziono img con indice trovato con chosen e gli metto la classe chose
+    $('.box-img img').slice(imgChosen, imgChosen+1).addClass('active');
+    
+  };
 
   //al click vado avanti nel carosello immagini
   function indietro(){
@@ -51,7 +80,7 @@ $(function(){
       imgVisible.prev().addClass('active');
       dotVisible.prev().removeClass('far fa-circle').addClass('fas fa-circle');
 
-    }
+    };
 
   };
 
