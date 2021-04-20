@@ -17,9 +17,10 @@ $(function(){
   console.log(figli.length)
 
   //genero pallini per n img
-  for (var i = 0; i < figli.length; i++){
+  $('.box-center .pallini').prepend('<i class="fas fa-circle"></i>');
+  for (var i = 1; i < figli.length; i++){
     
-    $('.box-center .pallini').prepend('<i class="far fa-circle"></i>');
+    $('.box-center .pallini').append('<i class="far fa-circle"></i>');
   }
 
   /* 
